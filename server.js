@@ -29,18 +29,8 @@ app.get("/api/bookings", async (req, res) => {
   }
 });
 
-// 2️⃣ GET booking by ID
-app.get("/api/bookings/:id", async (req, res) => {
-  try {
-    const booking = await Booking.findById(req.params.id);
-    if (!booking) {
-      return res.status(404).json({ message: "Booking not found" });
-    }
-    res.status(200).json(booking);
-  } catch (error) {
-    res.status(500).json({ message: "Server error", error: error.message });
-  }
-});
+
+
 
 // 3️⃣ POST create new booking
 app.post("/api/bookings", async (req, res) => {
@@ -118,6 +108,19 @@ app.get("/api/bookings/filter", async (req, res) => {
 
     const bookings = await Booking.find({ event: new RegExp(event, "i") });
     res.status(200).json(bookings);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+});
+
+// 8️⃣ GET booking by ID
+app.get("/api/bookings/:id", async (req, res) => {
+  try {
+    const booking = await Booking.findById(req.params.id);
+    if (!booking) {
+      return res.status(404).json({ message: "Booking not found" });
+    }
+    res.status(200).json(booking);
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
   }
